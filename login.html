@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your E-Commerce Store - Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Your existing styles */
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container login-container">
+    <h2 class="my-4">Login</h2>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+
+      <button type="button" class="btn btn-dark" onclick="login()">Login</button>
+    </form>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Perform a simple check for demonstration purposes
+      if (username === 'demo' && password === 'password') {
+        alert('Login successful! Redirecting to the home page.');
+        window.location.href = 'index.html';
+      } else {
+        alert('Invalid credentials. Please try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>

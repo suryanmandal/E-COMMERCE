@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your E-Commerce Store - Product 1</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="script" href="script.js">
+  <style>
+    /* Your existing styles */
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Mirgi Fashion</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="products.html">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact US</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="images/heel.jpg" alt="Product 1" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <h2>Product 1</h2>
+        <p>Description of Product 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        <p>Price: $19.99</p>
+        <button class="btn btn-dark" onclick="addToCart('Product 1', 19.99)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart">
+    <div class="container">
+      <h2>Shopping Cart</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: $<span id="cart-total">0.00</span></p>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white mt-4 py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5 class="mb-4">Pages</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-white">Home</a></li>
+            <li><a href="products.html" class="text-white">Products</a></li>
+            <li><a href="contact.html" class="text-white">Contact US</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-4">Connect With Us</h5>
+          <p>Follow us on social media for updates and promotions:</p>
+          <!-- Add social media icons or other contact information as needed -->
+          
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-4">Stay Updated</h5>
+          <form>
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email" aria-describedby="button-addon2">
+              <button class="btn btn-outline-light" type="button" id="button-addon2">Subscribe</button>
+            </div>
+          </form>
+          
+        </div>
+        
+      </div>
+      <div class="container text-center">
+        &copy; 2023 Marimo Fashions. All rights reserved.
+      </div>
+    </div>
+    
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Function to add items to the cart
+    function addToCart(name, price) {
+      const item = { name, price };
+  
+      // Retrieve the existing cart from localStorage
+      const storedCart = localStorage.getItem('cart');
+      const cart = storedCart ? JSON.parse(storedCart) : [];
+  
+      // Add the new item to the cart
+      cart.push(item);
+  
+      // Save the updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+  
+      // Update the cart display on the current page
+      updateCartDisplay();
+    }
+  
+    // Function to remove items from the cart
+    function removeFromCart(index) {
+      // Retrieve the existing cart from localStorage
+      const storedCart = localStorage.getItem('cart');
+      const cart = storedCart ? JSON.parse(storedCart) : [];
+  
+      // Remove the item at the specified index
+      if (index >= 0 && index < cart.length) {
+        cart.splice(index, 1);
+      }
+  
+      // Save the updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+  
+      // Update the cart display on the current page
+      updateCartDisplay();
+    }
+  
+    // Function to update the cart display
+    function updateCartDisplay() {
+      // Retrieve the cart from localStorage and update the display
+      const storedCart = localStorage.getItem('cart');
+      const cart = storedCart ? JSON.parse(storedCart) : [];
+      const cartList = document.getElementById('cart-items');
+      const totalElement = document.getElementById('cart-total');
+  
+      // Clear the existing items
+      cartList.innerHTML = '';
+  
+      // Populate the cart with the updated items
+      cart.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.name}: $${item.price.toFixed(2)}`;
+        
+        // Add a remove button for each item
+        const removeButton = document.createElement('button');
+        removeButton.className ="btn btn-dark m-2";
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeFromCart(index);
+        
+        listItem.appendChild(removeButton);
+        cartList.appendChild(listItem);
+      });
+  
+      // Calculate and display the total
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      totalElement.textContent = total.toFixed(2);
+    }
+  
+    // Update the cart display when the page loads
+    updateCartDisplay();
+  </script>
+
+</body>
+</html>
